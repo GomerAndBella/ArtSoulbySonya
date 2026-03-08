@@ -174,6 +174,7 @@ async function loadArtworks() {
   const { data, error } = await client
     .from("artworks")
     .select("id,title,slug,short_description,active_price,floor_price,target_price,stretch_price,status,hero_image_url,collection_id,collections(name)")
+    .in("status", ["available", "reserved"])
     .order("piece_code", { ascending: true });
 
   if (error) {

@@ -117,6 +117,7 @@ async function init() {
     .from("artworks")
     .select("id,title,slug,story,short_description,materials,year_completed,floor_price,target_price,stretch_price,active_price,status,hero_image_url,collections(name)")
     .eq("slug", slug)
+    .in("status", ["available", "reserved"])
     .single();
 
   if (error || !data) {
