@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Art & Soul - A Desert Gallery</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero" id="home">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <p id="returning-message" class="returning"></p>
+      <h1>Art & Soul - A Desert Gallery</h1>
+      <p class="byline">by Sonya</p>
+      <p class="tagline">Where desert stories become light.<br />Rooted in wonder. Guided by faith.</p>
+      <a class="btn" href="#artworks">Step softly into the gallery</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section greeting">
+      <p>Welcome.</p>
+      <p>You have stepped into a place shaped by desert light and quiet wonder.</p>
+    </section>
+
+    <section class="section" id="exhibition">
+      <h2>What the Desert Restores</h2>
+      <p>
+        What the Desert Restores explores the quiet transformation found within weathered things. Gathered from
+        the desert floor, each object carries a history shaped by time and the elements.
+      </p>
+    </section>
+
+    <section class="section" id="artworks">
+      <h2>Featured Works</h2>
+      <div class="filter-bar">
+        <label for="collection-filter">Filter by collection</label>
+        <select id="collection-filter">
+          <option value="all">All collections</option>
+        </select>
+      </div>
+      <p id="loading-artworks">Loading artwork from your live gallery...</p>
+      <div class="grid artworks" id="artworks-grid"></div>
+    </section>
+
+    <section class="section" id="about">
+      <h2>About the Artist</h2>
+      <p>
+        Sonya creates from conversation with the desert. Drawn to weathered materials shaped by time and elements,
+        she restores each piece through color, imagination, and care.
+      </p>
+    </section>
+  </main>
+
+  <footer class="section footer">
+    <p id="blessing"></p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
