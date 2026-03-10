@@ -36,14 +36,30 @@ function optimizedImageUrl(url) {
   return `${transformed}${sep}width=1400&height=1200&resize=contain&quality=75&format=origin`;
 }
 
+function getCheckoutLink(artwork, cfg) {
+  const pieceLink = String(artwork.stripe_payment_link || "").trim();
+  if (pieceLink) return pieceLink;
+
+  const defaultLink = String(cfg.stripeDefaultPaymentLink || "").trim();
+  if (defaultLink) return defaultLink;
+
+  return "";
+}
+
 function renderArtwork(el, a, collectionName) {
+  const cfg = window.GALLERY_CONFIG || {};
   const galleryPrice = midRoundedPrice(a);
   const galleryPriceText = galleryPrice ? `$${galleryPrice.toFixed(0)}` : "Price on request";
   const status = a.status || "available";
   const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
   const imageUrl = optimizedImageUrl(a.hero_image_url);
+  const checkoutLink = getCheckoutLink(a, cfg);
+  const checkoutCta = status === "reserved" ? "Join waitlist inquiry" : "Reserve / Buy";
   const imageHtml = imageUrl
     ? `<img class="artwork-image" src="${imageUrl}" alt="${a.title}" loading="lazy" />`
+    : "";
+  const checkoutHtml = checkoutLink
+    ? `<div class="actions"><a class="btn" href="${checkoutLink}" target="_blank" rel="noopener noreferrer">${checkoutCta}</a></div>`
     : "";
   el.innerHTML = `
     ${imageHtml}
@@ -56,6 +72,7 @@ function renderArtwork(el, a, collectionName) {
     <p><strong>Year:</strong> ${a.year_completed || "TBD"}</p>
     <p><strong>Materials:</strong> ${a.materials || "TBD"}</p>
     <p><strong>Story:</strong> ${a.story || "Story coming soon."}</p>
+    ${checkoutHtml}
     <form class="ask-form" id="detail-ask-form" data-artwork-id="${a.id}" data-piece="${a.title}">
       <h4>Ask the Artist</h4>
       <label>Name <input name="name" required /></label>
@@ -115,7 +132,7 @@ async function init() {
 
   const { data, error } = await client
     .from("artworks")
-    .select("id,title,slug,story,short_description,materials,year_completed,floor_price,target_price,stretch_price,active_price,status,hero_image_url,collections(name)")
+    .select("*,collections(name)")
     .eq("slug", slug)
     .in("status", ["available", "reserved"])
     .single();
