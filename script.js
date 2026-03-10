@@ -63,7 +63,18 @@ function optimizedImageUrl(url) {
   return `${transformed}${sep}width=900&height=700&resize=contain&quality=70&format=origin`;
 }
 
+function getCheckoutLink(artwork, cfg) {
+  const pieceLink = String(artwork.stripe_payment_link || "").trim();
+  if (pieceLink) return pieceLink;
+
+  const defaultLink = String(cfg.stripeDefaultPaymentLink || "").trim();
+  if (defaultLink) return defaultLink;
+
+  return "";
+}
+
 function makeCard(artwork) {
+  const cfg = window.GALLERY_CONFIG || {};
   const card = document.createElement("article");
   card.className = "card artwork";
 
@@ -72,9 +83,14 @@ function makeCard(artwork) {
   const priceText = price ? `$${price.toFixed(0)}` : "Price on request";
   const status = artwork.status || "available";
   const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
+  const checkoutLink = getCheckoutLink(artwork, cfg);
+  const checkoutCta = status === "reserved" ? "Join waitlist inquiry" : "Reserve / Buy";
   const imageUrl = optimizedImageUrl(artwork.hero_image_url);
   const imageHtml = imageUrl
     ? `<img class="artwork-image" src="${imageUrl}" alt="${artwork.title}" loading="lazy" />`
+    : "";
+  const checkoutHtml = checkoutLink
+    ? `<a class="btn" href="${checkoutLink}" target="_blank" rel="noopener noreferrer">${checkoutCta}</a>`
     : "";
 
   card.innerHTML = `
@@ -86,6 +102,7 @@ function makeCard(artwork) {
     <p><strong>Gallery Price:</strong> ${priceText}</p>
     <div class="actions">
       <a class="btn alt" href="artwork.html?slug=${encodeURIComponent(artwork.slug)}">View details</a>
+      ${checkoutHtml}
     </div>
     <form class="ask-form" data-artwork-id="${artwork.id}" data-piece="${artwork.title}">
       <h4>Ask the Artist</h4>
@@ -173,7 +190,7 @@ async function loadArtworks() {
 
   const { data, error } = await client
     .from("artworks")
-    .select("id,title,slug,short_description,active_price,floor_price,target_price,stretch_price,status,hero_image_url,collection_id,collections(name)")
+    .select("id,title,slug,short_description,active_price,floor_price,target_price,stretch_price,status,hero_image_url,stripe_payment_link,collection_id,collections(name)")
     .in("status", ["available", "reserved"])
     .order("piece_code", { ascending: true });
 
