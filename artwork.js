@@ -46,6 +46,19 @@ function getCheckoutLink(artwork, cfg) {
   return "";
 }
 
+async function logCheckoutStart(client, checkoutMeta) {
+  if (!client) return;
+  const payload = {
+    artwork_id: checkoutMeta.artworkId || null,
+    piece_code: checkoutMeta.pieceCode || null,
+    title_snapshot: checkoutMeta.title || null,
+    estimated_amount: checkoutMeta.estimatedAmount || null,
+    checkout_url: checkoutMeta.checkoutUrl || null,
+    source_page: checkoutMeta.sourcePage || "detail"
+  };
+  await client.from("orders").insert(payload);
+}
+
 function renderArtwork(el, a, collectionName) {
   const cfg = window.GALLERY_CONFIG || {};
   const galleryPrice = midRoundedPrice(a);
@@ -59,7 +72,7 @@ function renderArtwork(el, a, collectionName) {
     ? `<img class="artwork-image" src="${imageUrl}" alt="${a.title}" loading="lazy" />`
     : "";
   const checkoutHtml = checkoutLink
-    ? `<div class="actions"><a class="btn" href="${checkoutLink}" target="_blank" rel="noopener noreferrer">${checkoutCta}</a><a class="policy-link" href="checkout-policy.html">Checkout policy</a></div>`
+    ? `<div class="actions"><a class="btn checkout-btn" href="${checkoutLink}" data-artwork-id="${a.id}" data-piece-code="${a.piece_code || ""}" data-piece-title="${a.title}" data-estimated-amount="${galleryPrice || ""}" data-source-page="detail">${checkoutCta}</a><a class="policy-link" href="checkout-policy.html">Checkout policy</a></div>`
     : "";
   el.innerHTML = `
     ${imageHtml}
@@ -82,6 +95,37 @@ function renderArtwork(el, a, collectionName) {
       <p class="success" aria-live="polite"></p>
     </form>
   `;
+}
+
+async function setupCheckoutButton(client) {
+  const btn = document.querySelector(".checkout-btn");
+  if (!btn) return;
+
+  btn.addEventListener("click", async (event) => {
+    event.preventDefault();
+    const checkoutUrl = btn.getAttribute("href") || "";
+    const artworkId = btn.getAttribute("data-artwork-id") || null;
+    const pieceCode = btn.getAttribute("data-piece-code") || null;
+    const title = btn.getAttribute("data-piece-title") || null;
+    const estimatedRaw = btn.getAttribute("data-estimated-amount") || "";
+    const estimatedAmount = estimatedRaw ? Number(estimatedRaw) : null;
+    const sourcePage = btn.getAttribute("data-source-page") || "detail";
+
+    try {
+      await logCheckoutStart(client, {
+        artworkId,
+        pieceCode,
+        title,
+        estimatedAmount,
+        checkoutUrl,
+        sourcePage
+      });
+    } catch (error) {
+      console.warn("Checkout log insert failed", error);
+    }
+
+    window.open(checkoutUrl, "_blank", "noopener,noreferrer");
+  });
 }
 
 async function setupForm(client) {
@@ -143,6 +187,7 @@ async function init() {
   }
 
   renderArtwork(el, data, data.collections?.name || "Collection");
+  await setupCheckoutButton(client);
   await setupForm(client);
 }
 

@@ -73,6 +73,19 @@ function getCheckoutLink(artwork, cfg) {
   return "";
 }
 
+async function logCheckoutStart(client, checkoutMeta) {
+  if (!client) return;
+  const payload = {
+    artwork_id: checkoutMeta.artworkId || null,
+    piece_code: checkoutMeta.pieceCode || null,
+    title_snapshot: checkoutMeta.title || null,
+    estimated_amount: checkoutMeta.estimatedAmount || null,
+    checkout_url: checkoutMeta.checkoutUrl || null,
+    source_page: checkoutMeta.sourcePage || "gallery"
+  };
+  await client.from("orders").insert(payload);
+}
+
 function makeCard(artwork) {
   const cfg = window.GALLERY_CONFIG || {};
   const card = document.createElement("article");
@@ -90,7 +103,7 @@ function makeCard(artwork) {
     ? `<img class="artwork-image" src="${imageUrl}" alt="${artwork.title}" loading="lazy" />`
     : "";
   const checkoutHtml = checkoutLink
-    ? `<a class="btn" href="${checkoutLink}" target="_blank" rel="noopener noreferrer">${checkoutCta}</a>`
+    ? `<a class="btn checkout-btn" href="${checkoutLink}" data-artwork-id="${artwork.id}" data-piece-code="${artwork.piece_code || ""}" data-piece-title="${artwork.title}" data-estimated-amount="${price || ""}" data-source-page="gallery">${checkoutCta}</a>`
     : "";
   const policyHtml = checkoutLink
     ? `<a class="policy-link" href="checkout-policy.html">Checkout policy</a>`
@@ -151,6 +164,37 @@ async function setupAskForms(client) {
   });
 }
 
+async function setupCheckoutButtons(client) {
+  const checkoutButtons = document.querySelectorAll(".checkout-btn");
+  checkoutButtons.forEach((btn) => {
+    btn.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const checkoutUrl = btn.getAttribute("href") || "";
+      const artworkId = btn.getAttribute("data-artwork-id") || null;
+      const pieceCode = btn.getAttribute("data-piece-code") || null;
+      const title = btn.getAttribute("data-piece-title") || null;
+      const estimatedRaw = btn.getAttribute("data-estimated-amount") || "";
+      const estimatedAmount = estimatedRaw ? Number(estimatedRaw) : null;
+      const sourcePage = btn.getAttribute("data-source-page") || "gallery";
+
+      try {
+        await logCheckoutStart(client, {
+          artworkId,
+          pieceCode,
+          title,
+          estimatedAmount,
+          checkoutUrl,
+          sourcePage
+        });
+      } catch (error) {
+        console.warn("Checkout log insert failed", error);
+      }
+
+      window.open(checkoutUrl, "_blank", "noopener,noreferrer");
+    });
+  });
+}
+
 function renderArtworkGrid(rows) {
   const grid = document.getElementById("artworks-grid");
   grid.innerHTML = "";
@@ -176,6 +220,7 @@ function setupCollectionFilter() {
       : allArtworks.filter((a) => a.collection_name === selected);
 
     renderArtworkGrid(filtered);
+    await setupCheckoutButtons(supabaseClient);
     await setupAskForms(supabaseClient);
   });
 }
@@ -194,7 +239,7 @@ async function loadArtworks() {
 
   const { data, error } = await client
     .from("artworks")
-    .select("id,title,slug,short_description,active_price,floor_price,target_price,stretch_price,status,hero_image_url,stripe_payment_link,collection_id,collections(name)")
+    .select("id,piece_code,title,slug,short_description,active_price,floor_price,target_price,stretch_price,status,hero_image_url,stripe_payment_link,collection_id,collections(name)")
     .in("status", ["available", "reserved"])
     .order("piece_code", { ascending: true });
 
@@ -213,6 +258,7 @@ async function loadArtworks() {
   renderArtworkGrid(allArtworks);
   setupCollectionFilter();
 
+  await setupCheckoutButtons(client);
   await setupAskForms(client);
 }
 
