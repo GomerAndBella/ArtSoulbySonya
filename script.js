@@ -92,6 +92,9 @@ function makeCard(artwork) {
   const checkoutHtml = checkoutLink
     ? `<a class="btn" href="${checkoutLink}" target="_blank" rel="noopener noreferrer">${checkoutCta}</a>`
     : "";
+  const policyHtml = checkoutLink
+    ? `<a class="policy-link" href="checkout-policy.html">Checkout policy</a>`
+    : "";
 
   card.innerHTML = `
     ${imageHtml}
@@ -103,6 +106,7 @@ function makeCard(artwork) {
     <div class="actions">
       <a class="btn alt" href="artwork.html?slug=${encodeURIComponent(artwork.slug)}">View details</a>
       ${checkoutHtml}
+      ${policyHtml}
     </div>
     <form class="ask-form" data-artwork-id="${artwork.id}" data-piece="${artwork.title}">
       <h4>Ask the Artist</h4>

@@ -59,7 +59,7 @@ function renderArtwork(el, a, collectionName) {
     ? `<img class="artwork-image" src="${imageUrl}" alt="${a.title}" loading="lazy" />`
     : "";
   const checkoutHtml = checkoutLink
-    ? `<div class="actions"><a class="btn" href="${checkoutLink}" target="_blank" rel="noopener noreferrer">${checkoutCta}</a></div>`
+    ? `<div class="actions"><a class="btn" href="${checkoutLink}" target="_blank" rel="noopener noreferrer">${checkoutCta}</a><a class="policy-link" href="checkout-policy.html">Checkout policy</a></div>`
     : "";
   el.innerHTML = `
     ${imageHtml}

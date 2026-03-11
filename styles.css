@@ -139,7 +139,27 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
 
 .btn:hover { background: #5f3d27; }
 .btn.alt { background: #886245; margin-bottom: 0.6rem; }
-.actions { margin-top: 0.8rem; }
+.actions {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.policy-link {
+  color: var(--earth);
+  font-size: 0.86rem;
+}
+
+.policy-link:hover {
+  color: #5f3d27;
+}
+
+.policy-card h2 {
+  margin-top: 1.2rem;
+  margin-bottom: 0.2rem;
+}
 
 .ask-form {
   border-top: 1px dashed rgba(111, 75, 50, 0.3);
