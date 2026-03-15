@@ -5,13 +5,6 @@ function json(data, status = 200) {
   });
 }
 
-function prefixOf(value) {
-  if (!value) return null;
-  const idx = value.indexOf("_");
-  if (idx === -1) return value.slice(0, 4);
-  return value.slice(0, idx + 1);
-}
-
 function secureCompare(a, b) {
   if (!a || !b || a.length !== b.length) return false;
   let mismatch = 0;
@@ -180,32 +173,10 @@ async function processCheckoutCompleted(event, env) {
 
 export default {
   async fetch(request, env) {
-    const url = new URL(request.url);
-
-    if (request.method === "GET" && url.pathname === "/health") {
-      return json({
-        ok: true,
-        secrets: {
-          stripeSecretKeyPrefix: prefixOf(env.STRIPE_SECRET_KEY),
-          stripeWebhookSigningSecretPrefix: prefixOf(env.STRIPE_WEBHOOK_SIGNING_SECRET),
-          supabaseUrlConfigured: Boolean(env.SUPABASE_URL),
-          supabaseServiceRoleConfigured: Boolean(env.SUPABASE_SERVICE_ROLE_KEY)
-        }
-      });
-    }
-
     if (request.method !== "POST") return json({ error: "Method not allowed" }, 405);
 
     if (!env.STRIPE_WEBHOOK_SIGNING_SECRET || !env.STRIPE_SECRET_KEY || !env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
       return json({ error: "Missing required environment secrets" }, 500);
-    }
-
-    if (!String(env.STRIPE_SECRET_KEY).startsWith("sk_")) {
-      return json({ error: "Invalid STRIPE_SECRET_KEY prefix", prefix: prefixOf(env.STRIPE_SECRET_KEY) }, 500);
-    }
-
-    if (!String(env.STRIPE_WEBHOOK_SIGNING_SECRET).startsWith("whsec_")) {
-      return json({ error: "Invalid STRIPE_WEBHOOK_SIGNING_SECRET prefix", prefix: prefixOf(env.STRIPE_WEBHOOK_SIGNING_SECRET) }, 500);
     }
 
     const signature = request.headers.get("stripe-signature");
