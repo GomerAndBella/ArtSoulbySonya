@@ -68,8 +68,14 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
   flex-direction: column;
 }
 .artwork-summary {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows:
+    minmax(3.8em, auto)
+    minmax(4.2rem, auto)
+    minmax(6.2em, auto)
+    minmax(2em, auto)
+    minmax(3rem, auto)
+    auto;
   flex: 1 1 auto;
 }
 
@@ -91,7 +97,18 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
 
 .artwork h3 { margin-bottom: 0.25rem; }
 .artworks .artwork h3 {
-  min-height: 3.6em;
+  min-height: 0;
+  margin-bottom: 0.35rem;
+}
+.artwork-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  justify-content: start;
+}
+.artwork-meta .room,
+.artwork-meta .status {
+  margin: 0;
 }
 .artwork-image {
   width: 100%;
@@ -175,11 +192,12 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
 }
 .whisper { color: var(--earth); font-style: italic; margin-top: 0; }
 .artworks .whisper {
-  min-height: 5.8em;
+  min-height: 0;
+  margin-bottom: 0.4rem;
 }
 .price-line {
-  min-height: 1.8em;
-  margin-bottom: 0;
+  min-height: 0;
+  margin: 0;
 }
 .status {
   display: inline-block;
@@ -210,14 +228,14 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
 .btn:hover { background: #5f3d27; }
 .btn.alt { background: #886245; margin-bottom: 0.6rem; }
 .actions {
-  margin-top: auto;
-  padding-top: 0.7rem;
+  margin-top: 0;
+  padding-top: 0.5rem;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.6rem;
 }
 .artworks .actions {
-  min-height: 2.9rem;
+  min-height: 0;
 }
 .artworks .actions .btn {
   min-width: 0;
@@ -339,6 +357,11 @@ input, textarea {
   .artworks .actions,
   .price-line {
     min-height: 0;
+  }
+
+  .artwork-summary {
+    display: flex;
+    flex-direction: column;
   }
 
   .ask-form input,

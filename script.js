@@ -166,8 +166,10 @@ function makeCard(artwork) {
     ${imageHtml}
     <div class="artwork-summary">
       <h3>${artwork.title}</h3>
-      <p class="room">${collection}</p>
-      <p class="status status-${status}">${statusLabel}</p>
+      <div class="artwork-meta">
+        <p class="room">${collection}</p>
+        <p class="status status-${status}">${statusLabel}</p>
+      </div>
       <p class="whisper">${artwork.short_description || ""}</p>
       <p class="price-line"><strong>Gallery Price:</strong> ${priceText}</p>
       <div class="actions">
