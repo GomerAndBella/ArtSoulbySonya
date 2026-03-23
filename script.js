@@ -17,6 +17,38 @@ const blessings = [
 let allArtworks = [];
 let supabaseClient = null;
 
+function absoluteUrl(pathname = "/") {
+  const cfg = window.GALLERY_CONFIG || {};
+  const siteUrl = String(cfg.siteUrl || "").trim().replace(/\/$/, "");
+  if (siteUrl) return `${siteUrl}${pathname}`;
+  return `${window.location.origin}${pathname}`;
+}
+
+function setMeta(selector, value, attr = "content") {
+  if (!value) return;
+  const el = document.querySelector(selector);
+  if (el) el.setAttribute(attr, value);
+}
+
+function setupHomeMetadata() {
+  const cfg = window.GALLERY_CONFIG || {};
+  const siteName = cfg.siteName || "Art & Soul - A Desert Gallery";
+  const description = "A desert gallery by Sonya featuring sacred, story-led artwork, collector inquiry, and direct purchase for selected pieces.";
+  const canonical = absoluteUrl("/");
+  const image = String(cfg.defaultOgImage || "").trim();
+
+  document.title = siteName;
+  setMeta('meta[name="description"]', description);
+  setMeta('meta[property="og:title"]', siteName);
+  setMeta('meta[property="og:description"]', description);
+  setMeta('meta[property="og:url"]', canonical);
+  setMeta('meta[property="og:image"]', image);
+  setMeta('meta[name="twitter:title"]', siteName);
+  setMeta('meta[name="twitter:description"]', description);
+  setMeta('meta[name="twitter:image"]', image);
+  setMeta('link[rel="canonical"]', canonical, "href");
+}
+
 function rotateFrom(list, seed = Date.now()) {
   const idx = Math.abs(seed) % list.length;
   return list[idx];
@@ -73,6 +105,26 @@ function getCheckoutLink(artwork, cfg) {
   return "";
 }
 
+function createImageFallback(title) {
+  const safeTitle = title || "Artwork image coming soon";
+  return `<div class="artwork-image-fallback" role="img" aria-label="${safeTitle}">${safeTitle}<br />Image coming soon</div>`;
+}
+
+function attachImageFallbacks(root = document) {
+  const images = root.querySelectorAll("img.artwork-image");
+  images.forEach((img) => {
+    img.addEventListener("error", () => {
+      const label = img.getAttribute("alt") || "Artwork image coming soon";
+      const fallback = document.createElement("div");
+      fallback.className = "artwork-image-fallback";
+      fallback.setAttribute("role", "img");
+      fallback.setAttribute("aria-label", label);
+      fallback.innerHTML = `${label}<br />Image coming soon`;
+      img.replaceWith(fallback);
+    }, { once: true });
+  });
+}
+
 async function logCheckoutStart(client, checkoutMeta) {
   if (!client) return;
   const payload = {
@@ -99,9 +151,10 @@ function makeCard(artwork) {
   const checkoutLink = getCheckoutLink(artwork, cfg);
   const checkoutCta = status === "reserved" ? "Join waitlist inquiry" : "Reserve / Buy";
   const imageUrl = optimizedImageUrl(artwork.hero_image_url);
+  const imageAlt = artwork.hero_image_alt || artwork.title;
   const imageHtml = imageUrl
-    ? `<img class="artwork-image" src="${imageUrl}" alt="${artwork.title}" loading="lazy" />`
-    : "";
+    ? `<img class="artwork-image" src="${imageUrl}" alt="${imageAlt}" loading="lazy" />`
+    : createImageFallback(artwork.title);
   const checkoutHtml = checkoutLink
     ? `<a class="btn checkout-btn" href="${checkoutLink}" data-artwork-id="${artwork.id}" data-piece-code="${artwork.piece_code || ""}" data-piece-title="${artwork.title}" data-estimated-amount="${price || ""}" data-source-page="gallery">${checkoutCta}</a>`
     : "";
@@ -111,14 +164,16 @@ function makeCard(artwork) {
 
   card.innerHTML = `
     ${imageHtml}
-    <h3>${artwork.title}</h3>
-    <p class="room">${collection}</p>
-    <p class="status status-${status}">${statusLabel}</p>
-    <p class="whisper">${artwork.short_description || ""}</p>
-    <p><strong>Gallery Price:</strong> ${priceText}</p>
-    <div class="actions">
-      <a class="btn alt" href="artwork.html?slug=${encodeURIComponent(artwork.slug)}">View details</a>
-      ${checkoutHtml}
+    <div class="artwork-summary">
+      <h3>${artwork.title}</h3>
+      <p class="room">${collection}</p>
+      <p class="status status-${status}">${statusLabel}</p>
+      <p class="whisper">${artwork.short_description || ""}</p>
+      <p class="price-line"><strong>Gallery Price:</strong> ${priceText}</p>
+      <div class="actions">
+        <a class="btn alt" href="artwork.html?slug=${encodeURIComponent(artwork.slug)}">View details</a>
+        ${checkoutHtml}
+      </div>
       ${policyHtml}
     </div>
     <form class="ask-form" data-artwork-id="${artwork.id}" data-piece="${artwork.title}">
@@ -198,7 +253,12 @@ async function setupCheckoutButtons(client) {
 function renderArtworkGrid(rows) {
   const grid = document.getElementById("artworks-grid");
   grid.innerHTML = "";
+  if (!rows.length) {
+    grid.innerHTML = `<div class="card empty-state"><h3>No artworks are visible right now.</h3><p>Check back soon for the next collection update.</p></div>`;
+    return;
+  }
   rows.forEach((artwork) => grid.appendChild(makeCard(artwork)));
+  attachImageFallbacks(grid);
 }
 
 function setupCollectionFilter() {
@@ -239,7 +299,7 @@ async function loadArtworks() {
 
   const { data, error } = await client
     .from("artworks")
-    .select("id,piece_code,title,slug,short_description,active_price,floor_price,target_price,stretch_price,status,hero_image_url,stripe_payment_link,collection_id,collections(name)")
+    .select("id,piece_code,title,slug,short_description,active_price,floor_price,target_price,stretch_price,status,hero_image_url,hero_image_alt,stripe_payment_link,collection_id,collections(name)")
     .in("status", ["available", "reserved"])
     .order("piece_code", { ascending: true });
 
@@ -262,6 +322,7 @@ async function loadArtworks() {
   await setupAskForms(client);
 }
 
+setupHomeMetadata();
 setupReturningMessage();
 setupBlessing();
 loadArtworks();
