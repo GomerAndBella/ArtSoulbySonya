@@ -55,6 +55,9 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
 }
 .rooms { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 .artworks { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.artworks {
+  align-items: start;
+}
 
 .card {
   background: var(--paper);
@@ -64,19 +67,20 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
   box-shadow: 0 8px 24px rgba(54, 30, 15, 0.08);
 }
 .card.artwork {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 260px minmax(0, auto) auto;
+  height: 100%;
 }
 .artwork-summary {
   display: grid;
   grid-template-rows:
-    minmax(3.8em, auto)
-    minmax(4.2rem, auto)
-    minmax(6.2em, auto)
-    minmax(2em, auto)
-    minmax(3rem, auto)
+    3.8em
+    4.2rem
+    6.2em
+    2em
+    3rem
     auto;
-  flex: 1 1 auto;
+  align-self: start;
 }
 
 .filter-bar {
@@ -123,6 +127,7 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
   height: 260px;
   object-fit: contain;
   background: #f4ead8;
+  margin-bottom: 0;
 }
 
 /* Larger detail image with safe max height */
@@ -177,6 +182,7 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
 }
 .artworks .artwork-image-fallback {
   min-height: 260px;
+  margin-bottom: 0;
 }
 #artwork-detail .artwork-image-fallback {
   min-height: 360px;
@@ -241,6 +247,10 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
   min-width: 0;
   width: 100%;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 .artworks .policy-link {
   display: inline-block;
@@ -330,6 +340,12 @@ input, textarea {
 
   .card {
     padding: 0.9rem;
+  }
+
+  .card.artwork {
+    display: flex;
+    flex-direction: column;
+    grid-template-rows: none;
   }
 
   .actions {
