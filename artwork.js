@@ -1,5 +1,18 @@
 const THANK_YOU_MESSAGE = "Your reflection has been gently received. Thank you for sharing a moment within the gallery.";
 
+function absoluteUrl(pathname = "/") {
+  const cfg = window.GALLERY_CONFIG || {};
+  const siteUrl = String(cfg.siteUrl || "").trim().replace(/\/$/, "");
+  if (siteUrl) return `${siteUrl}${pathname}`;
+  return `${window.location.origin}${pathname}`;
+}
+
+function setMeta(selector, value, attr = "content") {
+  if (!value) return;
+  const el = document.querySelector(selector);
+  if (el) el.setAttribute(attr, value);
+}
+
 function getSlug() {
   const params = new URLSearchParams(window.location.search);
   return params.get("slug");
@@ -36,6 +49,14 @@ function optimizedImageUrl(url) {
   return `${transformed}${sep}width=1400&height=1200&resize=contain&quality=75&format=origin`;
 }
 
+function optimizedThumbUrl(url) {
+  if (!url) return "";
+  if (!url.includes("/storage/v1/object/public/")) return url;
+  const transformed = url.replace("/storage/v1/object/public/", "/storage/v1/render/image/public/");
+  const sep = transformed.includes("?") ? "&" : "?";
+  return `${transformed}${sep}width=240&height=240&resize=cover&quality=70&format=origin`;
+}
+
 function getCheckoutLink(artwork, cfg) {
   const pieceLink = String(artwork.stripe_payment_link || "").trim();
   if (pieceLink) return pieceLink;
@@ -44,6 +65,64 @@ function getCheckoutLink(artwork, cfg) {
   if (defaultLink) return defaultLink;
 
   return "";
+}
+
+function createImageFallback(title) {
+  const safeTitle = title || "Artwork image coming soon";
+  return `<div class="artwork-image-fallback" role="img" aria-label="${safeTitle}">${safeTitle}<br />Image coming soon</div>`;
+}
+
+function getArtworkImages(artwork) {
+  const manifest = window.ARTWORK_IMAGE_MANIFEST || {};
+  const listed = Array.isArray(manifest[artwork.piece_code]) ? manifest[artwork.piece_code] : [];
+  const primary = artwork.hero_image_url ? [artwork.hero_image_url] : [];
+  return [...new Set([...primary, ...listed])];
+}
+
+function makeArtworkGallery(a, imageAlt) {
+  const urls = getArtworkImages(a);
+  const primaryUrl = optimizedImageUrl(urls[0] || "");
+
+  if (!primaryUrl) return createImageFallback(a.title);
+
+  const thumbs = urls.length > 1
+    ? `<div class="artwork-thumbs" role="list" aria-label="Artwork views">
+        ${urls.map((url, index) => `
+          <button class="thumb-btn${index === 0 ? " is-active" : ""}" type="button" data-full-image="${optimizedImageUrl(url)}" data-thumb-index="${index}" aria-label="View ${a.title} image ${index + 1}">
+            <img src="${optimizedThumbUrl(url)}" alt="" loading="lazy" />
+          </button>
+        `).join("")}
+      </div>`
+    : "";
+
+  return `
+    <div class="artwork-gallery">
+      <img class="artwork-image artwork-image-main" src="${primaryUrl}" alt="${imageAlt}" loading="eager" />
+      ${thumbs}
+    </div>
+  `;
+}
+
+function setupArtworkMetadata(artwork, collectionName) {
+  const cfg = window.GALLERY_CONFIG || {};
+  const siteName = cfg.siteName || "Art & Soul - A Desert Gallery";
+  const title = `${artwork.title} | ${siteName}`;
+  const description = artwork.short_description
+    || artwork.story
+    || `View ${artwork.title} from ${collectionName} at ${siteName}.`;
+  const canonical = absoluteUrl(`/artwork.html?slug=${encodeURIComponent(artwork.slug)}`);
+  const image = optimizedImageUrl(artwork.hero_image_url) || String(cfg.defaultOgImage || "").trim();
+
+  document.title = title;
+  setMeta('meta[name="description"]', description);
+  setMeta('meta[property="og:title"]', title);
+  setMeta('meta[property="og:description"]', description);
+  setMeta('meta[property="og:url"]', canonical);
+  setMeta('meta[property="og:image"]', image);
+  setMeta('meta[name="twitter:title"]', title);
+  setMeta('meta[name="twitter:description"]', description);
+  setMeta('meta[name="twitter:image"]', image);
+  setMeta('link[rel="canonical"]', canonical, "href");
 }
 
 async function logCheckoutStart(client, checkoutMeta) {
@@ -65,12 +144,10 @@ function renderArtwork(el, a, collectionName) {
   const galleryPriceText = galleryPrice ? `$${galleryPrice.toFixed(0)}` : "Price on request";
   const status = a.status || "available";
   const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
-  const imageUrl = optimizedImageUrl(a.hero_image_url);
+  const imageAlt = a.hero_image_alt || a.title;
   const checkoutLink = getCheckoutLink(a, cfg);
   const checkoutCta = status === "reserved" ? "Join waitlist inquiry" : "Reserve / Buy";
-  const imageHtml = imageUrl
-    ? `<img class="artwork-image" src="${imageUrl}" alt="${a.title}" loading="lazy" />`
-    : "";
+  const imageHtml = makeArtworkGallery(a, imageAlt);
   const checkoutHtml = checkoutLink
     ? `<div class="actions"><a class="btn checkout-btn" href="${checkoutLink}" data-artwork-id="${a.id}" data-piece-code="${a.piece_code || ""}" data-piece-title="${a.title}" data-estimated-amount="${galleryPrice || ""}" data-source-page="detail">${checkoutCta}</a><a class="policy-link" href="checkout-policy.html">Checkout policy</a></div>`
     : "";
@@ -95,6 +172,44 @@ function renderArtwork(el, a, collectionName) {
       <p class="success" aria-live="polite"></p>
     </form>
   `;
+}
+
+function attachImageFallback(el) {
+  const images = el.querySelectorAll("img.artwork-image, .thumb-btn img");
+  images.forEach((img) => {
+    img.addEventListener("error", () => {
+      const isMain = img.classList.contains("artwork-image");
+      if (!isMain) {
+        const thumb = img.closest(".thumb-btn");
+        if (thumb) thumb.remove();
+        return;
+      }
+
+      const label = img.getAttribute("alt") || "Artwork image coming soon";
+      const fallback = document.createElement("div");
+      fallback.className = "artwork-image-fallback";
+      fallback.setAttribute("role", "img");
+      fallback.setAttribute("aria-label", label);
+      fallback.innerHTML = `${label}<br />Image coming soon`;
+      img.replaceWith(fallback);
+    }, { once: true });
+  });
+}
+
+function setupArtworkThumbs(el) {
+  const mainImage = el.querySelector(".artwork-image-main");
+  const thumbs = el.querySelectorAll(".thumb-btn");
+  if (!mainImage || !thumbs.length) return;
+
+  thumbs.forEach((thumb) => {
+    thumb.addEventListener("click", () => {
+      const nextUrl = thumb.getAttribute("data-full-image") || "";
+      if (!nextUrl) return;
+      mainImage.src = nextUrl;
+      thumbs.forEach((btn) => btn.classList.remove("is-active"));
+      thumb.classList.add("is-active");
+    });
+  });
 }
 
 async function setupCheckoutButton(client) {
@@ -182,11 +297,15 @@ async function init() {
     .single();
 
   if (error || !data) {
-    el.innerHTML = `<p>Could not load artwork details.</p>`;
+    el.innerHTML = `<div class="empty-state"><h2>Artwork not available</h2><p>This piece may have moved, sold, or been archived.</p><p><a class="btn alt" href="index.html#artworks">Return to gallery</a></p></div>`;
     return;
   }
 
-  renderArtwork(el, data, data.collections?.name || "Collection");
+  const collectionName = data.collections?.name || "Collection";
+  renderArtwork(el, data, collectionName);
+  attachImageFallback(el);
+  setupArtworkThumbs(el);
+  setupArtworkMetadata(data, collectionName);
   await setupCheckoutButton(client);
   await setupForm(client);
 }
