@@ -63,6 +63,10 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
   padding: 1rem;
   box-shadow: 0 8px 24px rgba(54, 30, 15, 0.08);
 }
+.card.artwork {
+  display: flex;
+  flex-direction: column;
+}
 
 .filter-bar {
   display: flex;
@@ -81,6 +85,9 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
 }
 
 .artwork h3 { margin-bottom: 0.25rem; }
+.artworks .artwork h3 {
+  min-height: 3.5em;
+}
 .artwork-image {
   width: 100%;
   border-radius: 10px;
@@ -162,6 +169,15 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
   letter-spacing: 0.02em;
 }
 .whisper { color: var(--earth); font-style: italic; margin-top: 0; }
+.artworks .whisper {
+  min-height: 5.6em;
+}
+.artworks .artwork > p strong {
+  display: inline-block;
+}
+.artworks .artwork > p:has(strong) {
+  min-height: 1.8em;
+}
 .status {
   display: inline-block;
   margin: 0.1rem 0 0.4rem;
@@ -182,20 +198,29 @@ h2 { margin-top: 0; font-size: clamp(1.4rem, 3vw, 2rem); }
   background: var(--earth);
   color: #fff;
   text-decoration: none;
-  padding: 0.7rem 1.1rem;
+  padding: 0.52rem 0.82rem;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   line-height: 1.2;
 }
 
 .btn:hover { background: #5f3d27; }
 .btn.alt { background: #886245; margin-bottom: 0.6rem; }
 .actions {
-  margin-top: 0.8rem;
+  margin-top: auto;
+  padding-top: 0.7rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.6rem;
+}
+.artworks .actions {
+  min-height: 2.9rem;
+}
+.artworks .actions .btn {
+  min-width: 104px;
+  justify-content: center;
+  text-align: center;
 }
 
 .policy-link {
@@ -294,6 +319,12 @@ input, textarea {
   main > .btn.alt {
     width: 100%;
     text-align: center;
+  }
+
+  .artworks .whisper,
+  .artworks .artwork h3,
+  .artworks .actions {
+    min-height: 0;
   }
 
   .ask-form input,
