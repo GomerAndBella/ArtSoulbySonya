@@ -301,7 +301,7 @@ async function loadArtworks() {
 
   const { data, error } = await client
     .from("artworks")
-    .select("id,piece_code,title,slug,short_description,active_price,floor_price,target_price,stretch_price,status,hero_image_url,hero_image_alt,stripe_payment_link,collection_id,collections(name)")
+    .select("id,piece_code,title,slug,short_description,active_price,floor_price,target_price,stretch_price,status,hero_image_url,stripe_payment_link,collection_id,collections(name)")
     .in("status", ["available", "reserved"])
     .order("piece_code", { ascending: true });
 
