@@ -1,0 +1,6 @@
+.git/
+stripe-webhook/
+upload-staging/
+README.md
+wrangler.jsonc
+.assetsignore

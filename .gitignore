@@ -4,3 +4,5 @@
 !.dev.vars.example
 .env*
 !.env.example
+upload-staging/
+stripe-webhook/.wrangler/
