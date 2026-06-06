@@ -16,6 +16,7 @@ const blessings = [
 
 let allArtworks = [];
 let supabaseClient = null;
+let imageLightbox = null;
 
 function absoluteUrl(pathname = "/") {
   const cfg = window.GALLERY_CONFIG || {};
@@ -73,12 +74,13 @@ function roundUpToTen(value) {
   return Math.ceil(value / 10) * 10;
 }
 
-function midRoundedPrice(artwork) {
+function displayPrice(artwork) {
   const floor = Number(artwork.floor_price || 0);
-  const stretch = Number(artwork.stretch_price || 0);
-  if (floor > 0 && stretch > 0) return roundUpToTen((floor + stretch) / 2);
-
   const target = Number(artwork.target_price || 0);
+  if (floor > 0 && target > 0) return roundUpToTen((floor + target) / 2);
+
+  if (floor > 0) return roundUpToTen(floor);
+
   if (target > 0) return roundUpToTen(target);
 
   const active = Number(artwork.active_price || 0);
@@ -89,10 +91,9 @@ function midRoundedPrice(artwork) {
 
 function optimizedImageUrl(url) {
   if (!url) return "";
-  if (!url.includes("/storage/v1/object/public/")) return url;
-  const transformed = url.replace("/storage/v1/object/public/", "/storage/v1/render/image/public/");
-  const sep = transformed.includes("?") ? "&" : "?";
-  return `${transformed}${sep}width=900&height=700&resize=contain&quality=70&format=origin`;
+  // Supabase transform URLs can return 403 after project suspension/recovery.
+  // Use the original public object URL so live artwork cards still render.
+  return url;
 }
 
 function getCheckoutLink(artwork, cfg) {
@@ -108,6 +109,113 @@ function getCheckoutLink(artwork, cfg) {
 function createImageFallback(title) {
   const safeTitle = title || "Artwork image coming soon";
   return `<div class="artwork-image-fallback" role="img" aria-label="${safeTitle}">${safeTitle}<br />Image coming soon</div>`;
+}
+
+function getArtworkVideos(artwork) {
+  const manifest = window.ARTWORK_VIDEO_MANIFEST || {};
+  const videos = Array.isArray(manifest[artwork.piece_code]) ? manifest[artwork.piece_code] : [];
+  return videos.filter((video) => video && video.src);
+}
+
+function ensureImageLightbox() {
+  if (imageLightbox) return imageLightbox;
+
+  const overlay = document.createElement("div");
+  overlay.className = "image-lightbox";
+  overlay.hidden = true;
+  overlay.innerHTML = `
+    <button class="image-lightbox-nav image-lightbox-prev" type="button" aria-label="Previous image">Prev</button>
+    <button class="image-lightbox-nav image-lightbox-next" type="button" aria-label="Next image">Next</button>
+    <button class="image-lightbox-close" type="button" aria-label="Close image zoom">Close</button>
+    <figure class="image-lightbox-figure">
+      <img class="image-lightbox-img" src="" alt="" />
+      <figcaption class="image-lightbox-caption"></figcaption>
+    </figure>
+  `;
+
+  const prevBtn = overlay.querySelector(".image-lightbox-prev");
+  const nextBtn = overlay.querySelector(".image-lightbox-next");
+  const closeBtn = overlay.querySelector(".image-lightbox-close");
+  const lightboxImg = overlay.querySelector(".image-lightbox-img");
+  const caption = overlay.querySelector(".image-lightbox-caption");
+  const state = { items: [], index: 0 };
+
+  function renderLightboxItem() {
+    const current = state.items[state.index];
+    if (!current) return;
+    lightboxImg.src = current.src;
+    lightboxImg.alt = current.alt || "Expanded artwork image";
+    caption.textContent = current.alt || "";
+
+    const multi = state.items.length > 1;
+    prevBtn.hidden = !multi;
+    nextBtn.hidden = !multi;
+  }
+
+  function closeLightbox() {
+    overlay.hidden = true;
+    overlay.classList.remove("is-open");
+    lightboxImg.src = "";
+    caption.textContent = "";
+    document.body.classList.remove("lightbox-open");
+  }
+
+  function moveLightbox(step) {
+    if (state.items.length < 2) return;
+    state.index = (state.index + step + state.items.length) % state.items.length;
+    renderLightboxItem();
+  }
+
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) closeLightbox();
+  });
+  prevBtn.addEventListener("click", (event) => {
+    event.stopPropagation();
+    moveLightbox(-1);
+  });
+  nextBtn.addEventListener("click", (event) => {
+    event.stopPropagation();
+    moveLightbox(1);
+  });
+  closeBtn.addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", (event) => {
+    if (!overlay.classList.contains("is-open")) return;
+    if (event.key === "Escape") closeLightbox();
+    if (event.key === "ArrowLeft") moveLightbox(-1);
+    if (event.key === "ArrowRight") moveLightbox(1);
+  });
+
+  document.body.appendChild(overlay);
+  imageLightbox = { overlay, state, renderLightboxItem };
+  return imageLightbox;
+}
+
+function openImageLightbox(items, startIndex = 0) {
+  if (!items.length) return;
+  const lightbox = ensureImageLightbox();
+  lightbox.state.items = items;
+  lightbox.state.index = startIndex;
+  lightbox.renderLightboxItem();
+  lightbox.overlay.hidden = false;
+  lightbox.overlay.classList.add("is-open");
+  document.body.classList.add("lightbox-open");
+}
+
+function attachZoomHandlers(root = document) {
+  const images = root.querySelectorAll("img.artwork-image");
+  images.forEach((img) => {
+    img.classList.add("zoomable-image");
+    if (img.dataset.zoomBound === "true") return;
+    img.dataset.zoomBound = "true";
+    img.addEventListener("click", () => {
+      openImageLightbox([
+        {
+          src: img.currentSrc || img.src,
+          alt: img.alt
+        }
+      ]);
+    });
+  });
 }
 
 function attachImageFallbacks(root = document) {
@@ -144,7 +252,7 @@ function makeCard(artwork) {
   card.className = "card artwork";
 
   const collection = artwork.collection_name || "Collection";
-  const price = midRoundedPrice(artwork);
+  const price = displayPrice(artwork);
   const priceText = price ? `$${price.toFixed(0)}` : "Price on request";
   const status = artwork.status || "available";
   const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
@@ -155,6 +263,10 @@ function makeCard(artwork) {
   const imageHtml = imageUrl
     ? `<img class="artwork-image" src="${imageUrl}" alt="${imageAlt}" loading="lazy" />`
     : createImageFallback(artwork.title);
+  const videos = getArtworkVideos(artwork);
+  const videoBadgeHtml = videos.length
+    ? `<p class="media-badge">Video included</p>`
+    : "";
   const checkoutHtml = checkoutLink
     ? `<a class="btn checkout-btn" href="${checkoutLink}" data-artwork-id="${artwork.id}" data-piece-code="${artwork.piece_code || ""}" data-piece-title="${artwork.title}" data-estimated-amount="${price || ""}" data-source-page="gallery">${checkoutCta}</a>`
     : "";
@@ -163,7 +275,11 @@ function makeCard(artwork) {
     : "";
 
   card.innerHTML = `
-    ${imageHtml}
+    <div class="artwork-card-media">
+      ${imageHtml}
+      ${videoBadgeHtml}
+    </div>
+    ${imageUrl ? '<p class="zoom-hint">Click image to enlarge</p>' : ''}
     <div class="artwork-summary">
       <h3>${artwork.title}</h3>
       <div class="artwork-meta">
@@ -261,6 +377,7 @@ function renderArtworkGrid(rows) {
   }
   rows.forEach((artwork) => grid.appendChild(makeCard(artwork)));
   attachImageFallbacks(grid);
+  attachZoomHandlers(grid);
 }
 
 function setupCollectionFilter() {
