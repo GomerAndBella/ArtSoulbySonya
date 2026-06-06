@@ -160,27 +160,27 @@ window.ARTWORK_IMAGE_MANIFEST = {
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-08_Prismatic-Drift/AS26-022_prismatic-drift_orig_2025-11-28_004.png"
   ],
   "AS26-023": [
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_001.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_002.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_003.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_004.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_005.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_006.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_007.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_008.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_009.png"
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06-reorder_001.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06-reorder_002.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06-reorder_003.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06-reorder_004.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06-reorder_005.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06-reorder_006.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06-reorder_007.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06-reorder_008.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06-reorder_009.png"
   ],
   "AS26-024": [
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_001.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_002.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_003.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_004.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_005.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_006.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_007.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_008.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_009.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_010.png"
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06-reorder_001.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06-reorder_002.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06-reorder_003.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06-reorder_004.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06-reorder_005.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06-reorder_006.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06-reorder_007.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06-reorder_008.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06-reorder_009.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06-reorder_010.png"
   ],
   "AS26-025": [
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Eternal-Flame/AS26-025_eternal-flame_orig_2026-05-31_001.png",
