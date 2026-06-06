@@ -18,10 +18,18 @@ window.ARTWORK_IMAGE_MANIFEST = {
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-10_Hollow-Bones-Living-Grace/AS26-006_hollow-bones-living-grace_orig_2026-06-02_008.png"
   ],
   "AS26-007": [
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-02-28_018.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-02-28_019.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-02-28_020.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-02-28_021.jpg"
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_001.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_002.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_003.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_004.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_005.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_006.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_007.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_008.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_009.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_010.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_011.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-07_Cross-in-the-Turning-Wind/AS26-007_cross-in-the-turning-wind_orig_2026-06-04_012.png"
   ],
   "AS26-008": [
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2024-07_Where-Dryland-Meets-the-Tide/AS26-008_where-dryland-meets-the-tide_orig_2026-06-03_001.png",
@@ -61,9 +69,11 @@ window.ARTWORK_IMAGE_MANIFEST = {
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2023-10_Desert-Roses-Lamp/AS26-011_desert-roses-lamp_orig_2026-01-12_001.png"
   ],
   "AS26-012": [
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2023-08_Desert-Whimsy/AS26-012_desert-whimsy_orig_2026-01-14_001.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2023-08_Desert-Whimsy/AS26-012_desert-whimsy_orig_2026-01-14_003.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2023-08_Desert-Whimsy/AS26-012_desert-whimsy_orig_2026-01-16_002.png"
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2023-08_Desert-Whimsy/AS26-012_desert-whimsy_orig_2026-06-06_001.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2023-08_Desert-Whimsy/AS26-012_desert-whimsy_orig_2026-06-06_002.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2023-08_Desert-Whimsy/AS26-012_desert-whimsy_orig_2026-06-06_003.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2023-08_Desert-Whimsy/AS26-012_desert-whimsy_orig_2026-06-06_004.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2023-08_Desert-Whimsy/AS26-012_desert-whimsy_orig_2026-06-06_005.png"
   ],
   "AS26-013": [
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-10_Covenant-in-Bone/AS26-013_covenant-in-bone_orig_2025-11-28_001.png",
@@ -150,27 +160,27 @@ window.ARTWORK_IMAGE_MANIFEST = {
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2025-08_Prismatic-Drift/AS26-022_prismatic-drift_orig_2025-11-28_004.png"
   ],
   "AS26-023": [
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-02_001.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-02_002.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-02_003.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-02_004.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-02_005.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-02_006.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-02_007.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-02_008.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-02_009.png"
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_001.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_002.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_003.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_004.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_005.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_006.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_007.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_008.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-04_Glass-Base-Cross/AS26-023_glass-base-cross_orig_2026-06-06_009.png"
   ],
   "AS26-024": [
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-04_001.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-04_002.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-04_003.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-04_004.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-04_005.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-04_006.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-04_007.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-04_008.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-04_009.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-04_010.png"
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_001.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_002.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_003.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_004.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_005.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_006.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_007.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_008.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_009.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Flame-in-the-Secret-Place/AS26-024_flame-in-the-secret-place_orig_2026-06-06_010.png"
   ],
   "AS26-025": [
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2026-05_Eternal-Flame/AS26-025_eternal-flame_orig_2026-05-31_001.png",
