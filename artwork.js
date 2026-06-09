@@ -57,12 +57,18 @@ function optimizedThumbUrl(url) {
 
 function getCheckoutLink(artwork, cfg) {
   const pieceLink = String(artwork.stripe_payment_link || "").trim();
-  if (pieceLink) return pieceLink;
+  if (isUsableCheckoutLink(pieceLink)) return pieceLink;
 
   const defaultLink = String(cfg.stripeDefaultPaymentLink || "").trim();
-  if (defaultLink) return defaultLink;
+  if (isUsableCheckoutLink(defaultLink)) return defaultLink;
 
   return "";
+}
+
+function isUsableCheckoutLink(url) {
+  if (!url) return false;
+  if (/^https:\/\/buy\.stripe\.com\/test_/i.test(url)) return false;
+  return /^https:\/\/buy\.stripe\.com\//i.test(url);
 }
 
 function createImageFallback(title) {
