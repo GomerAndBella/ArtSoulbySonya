@@ -270,7 +270,7 @@ function renderArtwork(el, a, collectionName) {
   const imageHtml = makeArtworkGallery(a, imageAlt);
   const checkoutHtml = checkoutLink
     ? `<div class="actions"><a class="btn checkout-btn" href="${checkoutLink}" data-artwork-id="${a.id}" data-piece-code="${a.piece_code || ""}" data-piece-title="${a.title}" data-estimated-amount="${galleryPrice || ""}" data-source-page="detail">${checkoutCta}</a><a class="policy-link" href="checkout-policy.html">Checkout policy</a></div>`
-    : "";
+    : `<div class="actions"><a class="btn reserve-inquiry-btn" href="#detail-ask-form">Reserve / Inquire</a></div>`;
   el.innerHTML = `
     ${imageHtml}
     <h1>${a.title}</h1>

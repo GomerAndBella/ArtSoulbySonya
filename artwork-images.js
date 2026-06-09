@@ -123,7 +123,12 @@ window.ARTWORK_IMAGE_MANIFEST = {
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2024-02_The-Listening-Flame/AS26-018_the-listening-flame_orig_2025-09-01_006.png",
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2024-02_The-Listening-Flame/AS26-018_the-listening-flame_orig_2025-09-01_007.png",
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2024-02_The-Listening-Flame/AS26-018_the-listening-flame_orig_2025-09-02_008.png",
-    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2024-02_The-Listening-Flame/AS26-018_the-listening-flame_orig_2025-09-03_009.png"
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2024-02_The-Listening-Flame/AS26-018_the-listening-flame_orig_2025-09-03_009.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2024-02_The-Listening-Flame/AS26-018_the-listening-flame_orig_2026-06-07_010.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2024-02_The-Listening-Flame/AS26-018_the-listening-flame_orig_2026-06-07_011.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2024-02_The-Listening-Flame/AS26-018_the-listening-flame_orig_2026-06-07_012.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2024-02_The-Listening-Flame/AS26-018_the-listening-flame_orig_2026-06-07_013.png",
+    "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2024-02_The-Listening-Flame/AS26-018_the-listening-flame_orig_2026-06-07_014.png"
   ],
   "AS26-019": [
     "https://yvzbdxxsmxnmgtbohecz.supabase.co/storage/v1/object/public/artwork-images/2022-11_Peppermint-in-the-Sonora/AS26-019_peppermint-in-the-sonora_orig_2025-09-20_002.png",

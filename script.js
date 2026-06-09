@@ -258,6 +258,7 @@ function makeCard(artwork) {
   const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
   const checkoutLink = getCheckoutLink(artwork, cfg);
   const checkoutCta = status === "reserved" ? "Join waitlist inquiry" : "Reserve / Buy";
+  const inquiryTarget = `ask-${artwork.piece_code || artwork.id}`;
   const imageUrl = optimizedImageUrl(artwork.hero_image_url);
   const imageAlt = artwork.hero_image_alt || artwork.title;
   const imageHtml = imageUrl
@@ -269,7 +270,7 @@ function makeCard(artwork) {
     : "";
   const checkoutHtml = checkoutLink
     ? `<a class="btn checkout-btn" href="${checkoutLink}" data-artwork-id="${artwork.id}" data-piece-code="${artwork.piece_code || ""}" data-piece-title="${artwork.title}" data-estimated-amount="${price || ""}" data-source-page="gallery">${checkoutCta}</a>`
-    : "";
+    : `<a class="btn reserve-inquiry-btn" href="#${inquiryTarget}">Reserve / Inquire</a>`;
   const policyHtml = checkoutLink
     ? `<a class="policy-link" href="checkout-policy.html">Checkout policy</a>`
     : "";
@@ -294,7 +295,7 @@ function makeCard(artwork) {
       </div>
       ${policyHtml}
     </div>
-    <form class="ask-form" data-artwork-id="${artwork.id}" data-piece="${artwork.title}">
+    <form class="ask-form" id="${inquiryTarget}" data-artwork-id="${artwork.id}" data-piece="${artwork.title}">
       <h4>Ask the Artist</h4>
       <p>You are welcome to leave a question or share what this piece stirred in you.</p>
       <label>Name <input name="name" required /></label>
